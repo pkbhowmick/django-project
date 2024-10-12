@@ -22,19 +22,19 @@ class ProductAPITests(APITestCase):
 
     def test_admin_can_create_product(self):
         self.authenticate(self.admin_user)
-        response = self.client.post('api/v1/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
+        response = self.client.post('/api/v1/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
         self.assertEqual(response.status_code, 200)
 
     def test_staff_can_create_product(self):
         self.authenticate(self.staff_user)
-        response = self.client.post('', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
+        response = self.client.post('/api/v1/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
         self.assertEqual(response.status_code, 200)
 
     def test_user_cannot_create_product(self):
         self.authenticate(self.general_user)
-        response = self.client.post('/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
+        response = self.client.post('/api/v1/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
         self.assertEqual(response.status_code, 403)
 
     def test_anonymous_cannot_create_product(self):
-        response = self.client.post('/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
+        response = self.client.post('/api/v1/products/', {'name': 'New Product', 'price': 20.0, 'description': 'New test product', 'stock': 10})
         self.assertEqual(response.status_code, 401)
